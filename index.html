@@ -9,8 +9,8 @@
 *{box-sizing:border-box}body{margin:0;background:#0d0d12;color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 .wrap{width:min(880px,calc(100% - 28px));margin:36px auto}.pill{display:inline-block;padding:6px 9px;border-radius:999px;background:#2c2138;color:#e6d4ff;font-size:12px}
 h1{margin:10px 0 6px}.muted{color:var(--muted)}.card{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
-.drop{border:1.5px dashed #554b63;border-radius:16px;padding:28px;text-align:center;cursor:pointer;background:#121219}.drop input{display:none}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.drop{display:block;width:100%;border:1.5px dashed #554b63;border-radius:16px;padding:28px;text-align:center;cursor:pointer;background:#121219}.drop input{display:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;clear:both}@media(max-width:680px){.grid{grid-template-columns:1fr}}
 .box{background:#121219;border:1px solid #2f2f39;border-radius:14px;padding:13px}.label{font-size:13px;color:var(--muted);margin-bottom:7px}
 select{width:100%;background:#20202a;color:#fff;border:1px solid #393846;border-radius:10px;padding:10px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .help{font-size:12px;color:#888495;margin-top:7px;line-height:1.45}.toggle{display:flex;align-items:center;gap:8px}.toggle input{width:17px;height:17px}
@@ -24,7 +24,7 @@ button{cursor:pointer}.primary{background:#d9bcff;color:#1b1125;flex:1}.secondar
 </head>
 <body>
 <main class="wrap">
-  <div class="pill">v17 · 로컬 처리 · 서버 업로드 없음</div>
+  <div class="pill">v17.1 · 로컬 처리 · 서버 업로드 없음</div>
   <h1>MP4 → animated WebP</h1>
   <div class="muted">화질·해상도·FPS를 선택해 브라우저에서 바로 변환합니다.</div>
   <section class="card">
