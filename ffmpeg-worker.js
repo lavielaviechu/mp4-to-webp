@@ -50,6 +50,20 @@ const ffprobe = ({ args, timeout = -1 }) => {
 const writeFile = ({ path, data }) => { ffmpeg.FS.writeFile(path, data); return true; };
 const readFile = ({ path, encoding }) => ffmpeg.FS.readFile(path, { encoding });
 const deleteFile = ({ path }) => { ffmpeg.FS.unlink(path); return true; };
+const rename = ({ oldPath, newPath }) => { ffmpeg.FS.rename(oldPath, newPath); return true; };
+const createDir = ({ path }) => { ffmpeg.FS.mkdir(path); return true; };
+const listDir = ({ path }) => ffmpeg.FS.readdir(path).map(name => {
+  const stat = ffmpeg.FS.stat(`${path}/${name}`);
+  return { name, isDir: ffmpeg.FS.isDir(stat.mode) };
+});
+const deleteDir = ({ path }) => { ffmpeg.FS.rmdir(path); return true; };
+const mount = ({ fsType, options, mountPoint }) => {
+  const fs = ffmpeg.FS.filesystems[fsType];
+  if (!fs) return false;
+  ffmpeg.FS.mount(fs, options, mountPoint);
+  return true;
+};
+const unmount = ({ mountPoint }) => { ffmpeg.FS.unmount(mountPoint); return true; };
 
 self.onmessage = async ({ data: { id, type, data: _data } }) => {
   const trans = [];
@@ -63,6 +77,12 @@ self.onmessage = async ({ data: { id, type, data: _data } }) => {
       case FFMessageType.WRITE_FILE: data = writeFile(_data); break;
       case FFMessageType.READ_FILE: data = readFile(_data); break;
       case FFMessageType.DELETE_FILE: data = deleteFile(_data); break;
+      case FFMessageType.RENAME: data = rename(_data); break;
+      case FFMessageType.CREATE_DIR: data = createDir(_data); break;
+      case FFMessageType.LIST_DIR: data = listDir(_data); break;
+      case FFMessageType.DELETE_DIR: data = deleteDir(_data); break;
+      case FFMessageType.MOUNT: data = mount(_data); break;
+      case FFMessageType.UNMOUNT: data = unmount(_data); break;
       default: throw ERROR_UNKNOWN_MESSAGE_TYPE;
     }
   } catch (e) {
